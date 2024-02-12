@@ -3,11 +3,11 @@ use cosmwasm_std::{Addr, StdResult, Storage};
 
 use cw3::{Ballot, Proposal};
 use cw_storage_plus::{Item, Map};
-use cw_utils::{Duration, Threshold};
+use cw_utils::Duration;
 
 #[cw_serde]
 pub struct Config {
-    pub threshold: Threshold,
+    pub required_weight: u64,
     pub total_weight: u64,
     pub max_voting_period: Duration,
 }

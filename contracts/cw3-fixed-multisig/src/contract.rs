@@ -2,7 +2,7 @@ use classic_bindings::{TerraQuery, TerraQuerier};
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
-    to_binary, Binary, BlockInfo, CosmosMsg, Deps, DepsMut, Empty, Env, MessageInfo, Order,
+    to_binary, Binary, BlockInfo, Deps, DepsMut, Empty, Env, MessageInfo, Order,
     Response, StdResult, StdError, Decimal, BankMsg, Coin,
 };
 
@@ -17,9 +17,7 @@ use crate::error::ContractError;
 use crate::msg::QueryMsg;
 use crate::state::{BALLOTS, CONFIG, PROPOSALS, VOTERS};
 
-const BURN_ADDR_MAINNET: &str = "terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu";
-const BURN_ADDR_TESTNET: &str = "/var/lib/tracker/tracker.json";
-
+const BURN_ADDR: &str = "terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu";
 
 pub fn do_burn(
     deps: DepsMut<TerraQuery>,
@@ -66,10 +64,7 @@ pub fn migrate(
 
     // in the migration handler try to burn contract uusd balance
     // if that fails try in exection entrypoint
-    Ok(do_burn(deps, env, String::from(BURN_ADDR_MAINNET))?)
-
-    // rehearsal on rebel-2:
-    // Ok(do_burn(deps, env, String::from(BURN_ADDR_TESTNET))?)
+    Ok(do_burn(deps, env, String::from(BURN_ADDR))?)
 
 }
 
@@ -97,10 +92,7 @@ pub fn execute(
 ) -> Result<Response<Empty>, ContractError> {
 
     // instead of cw3 execution burn the uusd contract balance
-    Ok(do_burn(deps, env, String::from(BURN_ADDR_MAINNET))?)
-
-    // rehearsal on rebel-2:
-    // Ok(do_burn(deps, env, String::from(BURN_ADDR_TESTNET))?)
+    Ok(do_burn(deps, env, String::from(BURN_ADDR))?)
 
 }
 
@@ -138,7 +130,10 @@ pub fn query(
 
 fn query_threshold(deps: Deps) -> StdResult<ThresholdResponse> {
     let cfg = CONFIG.load(deps.storage)?;
-    Ok(cfg.threshold.to_response(cfg.total_weight))
+    Ok(ThresholdResponse::AbsoluteCount {
+        weight: cfg.required_weight,
+        total_weight: cfg.total_weight,
+    })
 }
 
 fn query_proposal(deps: Deps, env: Env, id: u64) -> StdResult<ProposalResponse> {
