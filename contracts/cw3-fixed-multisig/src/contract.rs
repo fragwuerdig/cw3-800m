@@ -32,7 +32,7 @@ pub fn do_burn(
         .amount;
     let uusd_balance = Decimal::from_atomics(uusd_balance_coin, 0)
         .map_err(|_| StdError::GenericErr { msg: String::from("invalid uusd balance") })?;
-op
+
     // tax
     let querier = TerraQuerier::new(&deps.querier);
     let tax_rate = querier.query_tax_rate()?.rate; 
