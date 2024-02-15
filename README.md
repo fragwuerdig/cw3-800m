@@ -33,3 +33,20 @@ Local Built SHA:    f5489796b14791c2a4e385cd2d8aa6169032359c08cbc39b9b6306758674
 Both displayed hashes at the end of the output stream should match.
 
 Note, that the binary has been built on an `amd64/linux` machine.
+
+### Testnet Proposal Log
+
+- **Source Contract**: terra1nfzhyl9n7p2werkvpeejf8xeru39zgcv76h0yvha3khegwlcqffsm8tu7e
+- **Code ID (Target Code)**: 917
+- **Code ID (Initial Code)**: 915
+- **Proposal ID**: 45
+
+Stats Before Proposal Passed:
+
+- **Balance**: 10,000,000 USTC 
+- **Total Supply (Feb. 13th 2024, 15:42 UTC)**: 99,717,975.696639 USTC
+
+After proposal passed on Feb. 15th 21:42 UTC:
+
+- **Balance**: 40 USTC
+- **Total Supply (Feb. 15th 2024, 22:56 UTC)**: 89,737,975.696639 USTC
