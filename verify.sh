@@ -11,8 +11,7 @@
 
 set -e
 
-# TODO: Replace with the correct code id
-curl -sSX GET "https://terra-classic-lcd.publicnode.com:443/cosmwasm/wasm/v1/code/917" -H  "accept: application/json" | jq -r '.data' > download_base64.wasm
+curl -sSX GET "https://terra-classic-lcd.publicnode.com:443/cosmwasm/wasm/v1/code/8508" -H  "accept: application/json" | jq -r '.data' > download_base64.wasm
 base64 -d download_base64.wasm > download_raw.wasm
 
 ./build.sh
